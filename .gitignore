@@ -15,4 +15,5 @@ venv/
 
 *.pkl
 
-src/pcaps
+src/pcaps/
+pcaps/

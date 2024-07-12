@@ -19,8 +19,9 @@ class MitMAIDetector:
     def execute_transaction_model(self, features: DataFrame) -> bool:
         logging.info('Starting the model inference for MitM detection...')
         transact_model = pickle.load(open('./models/transact_logistic_regression_sklearn.model', 'rb'))    
-        mitm_attack_detected = transact_model.predict(features) 
-        return True if mitm_attack_detected.any() else False
+        mitm_predictions = transact_model.predict(features) 
+        high_attack_probability = self._is_mitm_attack_likely(mitm_predictions)
+        return True if high_attack_probability else False
     
     def _is_mitm_attack_likely(self, predictions):
         total_predictions = predictions.size
