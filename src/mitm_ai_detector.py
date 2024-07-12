@@ -25,6 +25,6 @@ class MitMAIDetector:
     
     def _is_mitm_attack_likely(self, predictions):
         total_predictions = predictions.size
-        num_mitm_attack_detections = np.sum(predictions == 1)
+        num_mitm_attack_detections = np.sum(predictions == 'mitm')
         mitm_attack_probability_percentage = (num_mitm_attack_detections / total_predictions) * 100
         return mitm_attack_probability_percentage > 80
