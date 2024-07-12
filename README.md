@@ -31,7 +31,7 @@ The application exposes a single endpoint for detecting MitM attacks:
 
 ```bash
 curl --location 'HOSTNAME:5000/detect/' \
---form 'process_per_packet="true"' \
+--form 'process_per_transactions="true"' \
 --form 'file=@"/path/to/your/pcap/file.pcapng"'
 ```
 
@@ -39,9 +39,9 @@ curl --location 'HOSTNAME:5000/detect/' \
 
 Replace `HOSTNAME` with the actual hostname where the MITM Detector API is hosted, and `/path/to/your/pcap/file.pcapng` with the path to the PCAP file you want to analyze.
 
-- **`process_per_packet`**: Set this parameter to `"true"` or `"false"` depending on the type of processor being used for the analysis.
-  - `"true"`: Enables packet-by-packet analysis.
-  - `"false"`: Uses transaction-level analysis.
+- **`process_per_transactions`**: Set this parameter to `"true"` or `"false"` depending on the type of processor being used for the analysis.
+  - `"true"`: Uses transaction-level analysis. 
+  - `"false"`: Enables packet-by-packet analysis.
 
 ### Response
 Upon analyzing the PCAP file, the application will respond with a JSON indicating whether a MitM attack was detected:

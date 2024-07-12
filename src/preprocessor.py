@@ -98,7 +98,6 @@ class Preprocessor:
         loop.close()        #TODO: DELETE?
         df = pd.DataFrame(features)
 
-        # Jose Alberto dice que hay packets con size=0 duplicados?
         df.drop_duplicates('timestamp', inplace=True)
 
         df['packet_type'] = (df['status'].fillna(value=0) + df['flags'].fillna(value=0) + df['protocol'].map({

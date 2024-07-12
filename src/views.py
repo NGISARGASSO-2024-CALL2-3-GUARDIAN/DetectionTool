@@ -19,15 +19,20 @@ def save_file(file: str, directory: str):
 
 @app.route('/detect/', methods=['POST'])
 def execute():
-    if 'file' not in request.files or 'process_per_packet' not in request.form:
+    if 'file' not in request.files or 'process_per_transactions' not in request.form:
         return jsonify(error='No file or mode provided'), 400
     
-    process_per_packet = request.form['process_per_packet']
+    process_per_transactions = request.form['process_per_transactions']
+    if process_per_transactions == 'true':  
+        process_per_transactions = True
+    else:
+        process_per_transactions = False
+
     file = request.files['file']
 
     try:
         pcap_filepath = save_file(file, './pcaps')
-        attack_detected = MitMAtactDetector(Preprocessor(), MitMAIDetector()).execute(process_per_packet, pcap_filepath)
+        attack_detected = MitMAtactDetector(Preprocessor(), MitMAIDetector()).execute(process_per_transactions, pcap_filepath)
         os.remove(pcap_filepath)
     except Exception as e:
         logging.error(f"Unexpected error: {str(e)}")
